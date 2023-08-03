@@ -17,13 +17,27 @@ import { Router } from '@angular/router'; // Add this line
             />
           </th>
           <th (click)="sortByName()">
-            Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i>
-            {{ sortBy === 'name' ? (sortAsc ? '▲' : '▼') : '' }}
+            Name
+            <i class="fas fa-sort-up" *ngIf="sortBy === 'name' && sortAsc"></i>
+            <i
+              class="fas fa-sort-down"
+              *ngIf="sortBy === 'name' && !sortAsc"
+            ></i>
+            <i class="fas fa-sort" *ngIf="sortBy !== 'name'"></i>
           </th>
           <th>Email</th>
           <th>Mobile</th>
           <th (click)="sortByAddress()">
-            Address ▲▼ {{ sortBy === 'address' ? (sortAsc ? '▲' : '▼') : '' }}
+            Address
+            <i
+              class="fas fa-sort-up"
+              *ngIf="sortBy === 'address' && sortAsc"
+            ></i>
+            <i
+              class="fas fa-sort-down"
+              *ngIf="sortBy === 'address' && !sortAsc"
+            ></i>
+            <i class="fas fa-sort" *ngIf="sortBy !== 'address'"></i>
           </th>
           <th>Actions</th>
         </tr>
@@ -149,28 +163,33 @@ import { Router } from '@angular/router'; // Add this line
         justify-content: space-between;
         align-items: center;
       }
-      
+
       .pagination-info {
         font-size: 14px;
       }
-      
+
       .pagination-buttons button {
         margin: 0 5px;
         padding: 5px 10px;
         border: none;
         cursor: pointer;
       }
-      
+
       .pagination-buttons .primary {
         background-color: #007bff;
         color: #fff;
       }
-      
+
       .pagination-buttons button[disabled] {
         opacity: 0.5;
         cursor: not-allowed;
       }
-      
+      .fas{
+        margin-left: 5px;
+      }
+      .fas:hover{
+        cursor: pointer;
+      }
     `,
   ],
 })
@@ -219,7 +238,13 @@ export class EmployeeGridComponent {
           .then(() => {
             // Notify parent component that the employee is deleted
             this.delete.emit(empId);
-            Swal.fire('Deleted!', 'The employee has been deleted.', 'success');
+            Swal.fire(
+              'Deleted!',
+              'The employee has been deleted.',
+              'success'
+            ).then(() => {
+              window.location.reload();
+            });
           })
           .catch((error) => {
             console.error(error);
@@ -295,7 +320,9 @@ export class EmployeeGridComponent {
               'Deleted!',
               'The selected employees have been deleted.',
               'success'
-            );
+            ).then(() => {
+              window.location.reload();
+            });
             this.selectedEmployees = [];
           })
           .catch((error) => {

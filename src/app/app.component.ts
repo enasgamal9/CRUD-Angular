@@ -85,7 +85,7 @@ export class LoaderComponent {}
               employeeForm.get('empName')!.touched
             "
           >
-            <div *ngIf="employeeForm.get('empName')!.hasError('required')">
+            <div *ngIf="employeeForm.get('empName')!.hasError('required')" class="text-danger">
               Name is required.
             </div>
           </div>
@@ -98,10 +98,10 @@ export class LoaderComponent {}
               employeeForm.get('empEmail')!.touched
             "
           >
-            <div *ngIf="employeeForm.get('empEmail')!.hasError('required')">
+            <div *ngIf="employeeForm.get('empEmail')!.hasError('required')" class="text-danger">
               Email is required.
             </div>
-            <div *ngIf="employeeForm.get('empEmail')!.hasError('empEmail')">
+            <div *ngIf="employeeForm.get('empEmail')!.hasError('email')" class="text-danger">
               Invalid Email format.
             </div>
           </div>
@@ -114,10 +114,10 @@ export class LoaderComponent {}
               employeeForm.get('empPhone')!.touched
             "
           >
-            <div *ngIf="employeeForm.get('empPhone')!.hasError('required')">
+            <div *ngIf="employeeForm.get('empPhone')!.hasError('required')" class="text-danger">
               Mobile is required.
             </div>
-            <div *ngIf="employeeForm.get('empPhone')!.hasError('pattern')">
+            <div *ngIf="employeeForm.get('empPhone')!.hasError('pattern')" class="text-danger">
               Invalid mobile format.
             </div>
           </div>
@@ -130,7 +130,7 @@ export class LoaderComponent {}
               employeeForm.get('empAddress')!.touched
             "
           >
-            <div *ngIf="employeeForm.get('empAddress')!.hasError('required')">
+            <div *ngIf="employeeForm.get('empAddress')!.hasError('required')" class="text-danger">
               Address is required.
             </div>
           </div>
@@ -211,6 +211,12 @@ export class LoaderComponent {}
       .popup button:disabled {
         background-color: #ccc;
         cursor: not-allowed;
+      }
+      @media (max-width: 768px) {
+        .tableHeader {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
     `,
   ],
