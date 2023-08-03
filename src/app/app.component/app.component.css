@@ -28,8 +28,8 @@
     flex-direction: column;
     align-items: center;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adding a subtle shadow effect */
-    max-width: 400px; /* Adjust this value to change the maximum width of the popup */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
   }
 
   .popup label {

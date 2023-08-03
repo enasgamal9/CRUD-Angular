@@ -132,11 +132,9 @@ export class AppComponent implements OnInit {
         this.route.snapshot.queryParamMap.get('empId');
       console.log(empIdFromQueryParams);
       if (empIdFromQueryParams) {
-        // Call the editEmployee method for updating the existing employee
         this.editEmployee(employeeData);
         console.log('edit');
       } else {
-        // Call the addEmployee method for creating a new employee
         this.addEmployee(employeeData);
         console.log('add');
       }

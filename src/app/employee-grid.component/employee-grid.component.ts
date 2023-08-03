@@ -102,7 +102,7 @@ export class EmployeeGridComponent {
 
   deleteSelectedEmployees() {
     if (this.selectedEmployees.length === 0) {
-      // No employees selected, show an alert
+      // No employees selected
       Swal.fire('Warning', 'No employees selected.', 'warning');
       return;
     }
@@ -117,19 +117,15 @@ export class EmployeeGridComponent {
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        // User confirmed, proceed with deletion
         const promises: Promise<any>[] = this.selectedEmployees.map((empId) =>
           this.employeeService.deleteEmployee(empId).toPromise()
         );
         Promise.all(promises)
           .then(() => {
-            // Remove deleted employees from the local data
             this.employees = this.employees.filter(
               (employee) => !this.selectedEmployees.includes(employee.empId)
             );
-            // Clear the selectedEmployees array
             this.selectedEmployees = [];
-            // Update displayedEmployees to show the current page's data after deletion
             this.goToPage(this.currentPage);
             Swal.fire(
               'Deleted!',
