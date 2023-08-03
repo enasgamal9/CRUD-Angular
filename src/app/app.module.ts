@@ -10,7 +10,6 @@ import { EmployeeGridComponent } from './employee-grid.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './app.component';
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -19,7 +18,7 @@ import { LoaderComponent } from './app.component';
     HttpClientModule,
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   declarations: [AppComponent, EmployeeGridComponent, LoaderComponent],
   bootstrap: [AppComponent],
