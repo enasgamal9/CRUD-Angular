@@ -1,0 +1,113 @@
+<div class="tableHeader container">
+  <h2 class="table-title">Manage Employees</h2>
+  <button class="btn btn-success p-2" (click)="showAddPopup()">
+    <i class="fas fa-plus bg-white text-success rounded-5 p-1"></i> Add New
+    Employee
+  </button>
+  <button class="btn btn-danger mx-3 p-2" (click)="onDeleteSelected()">
+    <i class="fas fa-minus bg-white text-danger rounded-5 p-1"></i> Delete
+    Selected Employees
+  </button>
+</div>
+<app-employee-grid
+  #employeeGridComponent
+  [employees]="employees"
+  (delete)="deleteEmployee($event)"
+  (edit)="showEditPopup($event)"
+  (deleteSelected)="onDeleteSelected()"
+></app-employee-grid>
+<div class="overlay" *ngIf="showingPopup">
+  <div class="popup">
+    <h2>{{ popupTitle }}</h2>
+    <form [formGroup]="employeeForm">
+      <label>Name:</label>
+      <input type="text" formControlName="empName" />
+      <div
+        *ngIf="
+          employeeForm.get('empName')!.invalid &&
+          employeeForm.get('empName')!.touched
+        "
+      >
+        <div
+          *ngIf="employeeForm.get('empName')!.hasError('required')"
+          class="text-danger"
+        >
+          Name is required.
+        </div>
+      </div>
+
+      <label>Email:</label>
+      <input type="email" formControlName="empEmail" />
+      <div
+        *ngIf="
+          employeeForm.get('empEmail')!.invalid &&
+          employeeForm.get('empEmail')!.touched
+        "
+      >
+        <div
+          *ngIf="employeeForm.get('empEmail')!.hasError('required')"
+          class="text-danger"
+        >
+          Email is required.
+        </div>
+        <div
+          *ngIf="employeeForm.get('empEmail')!.hasError('email')"
+          class="text-danger"
+        >
+          Invalid Email format.
+        </div>
+      </div>
+
+      <label>Mobile:</label>
+      <input type="text" formControlName="empPhone" />
+      <div
+        *ngIf="
+          employeeForm.get('empPhone')!.invalid &&
+          employeeForm.get('empPhone')!.touched
+        "
+      >
+        <div
+          *ngIf="employeeForm.get('empPhone')!.hasError('required')"
+          class="text-danger"
+        >
+          Mobile is required.
+        </div>
+        <div
+          *ngIf="employeeForm.get('empPhone')!.hasError('pattern')"
+          class="text-danger"
+        >
+          Invalid mobile format.
+        </div>
+      </div>
+
+      <label>Address:</label>
+      <input type="text" formControlName="empAddress" />
+      <div
+        *ngIf="
+          employeeForm.get('empAddress')!.invalid &&
+          employeeForm.get('empAddress')!.touched
+        "
+      >
+        <div
+          *ngIf="employeeForm.get('empAddress')!.hasError('required')"
+          class="text-danger"
+        >
+          Address is required.
+        </div>
+      </div>
+
+      <button
+        class="btn btn-success mx-2 w-25"
+        type="button"
+        (click)="saveEmployee()"
+        [disabled]="employeeForm.invalid || saving"
+      >
+        {{ saving ? "Saving..." : "Save" }}
+      </button>
+      <button type="button" class="btn btn-danger w-25" (click)="closePopup()">
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>
+<app-loader *ngIf="loading"></app-loader>

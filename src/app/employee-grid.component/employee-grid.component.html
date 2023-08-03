@@ -1,0 +1,90 @@
+<div class="table-container">
+  <table *ngIf="employees && employees.length > 0" class="container">
+    <thead>
+      <tr>
+        <th>
+          <input
+            type="checkbox"
+            [checked]="areAllRowsSelected()"
+            (change)="onSelectAllRows($event)"
+          />
+        </th>
+        <th (click)="sortByName()">
+          Name
+          <i class="fas fa-sort-up" *ngIf="sortBy === 'name' && sortAsc"></i>
+          <i class="fas fa-sort-down" *ngIf="sortBy === 'name' && !sortAsc"></i>
+          <i class="fas fa-sort" *ngIf="sortBy !== 'name'"></i>
+        </th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th (click)="sortByAddress()">
+          Address
+          <i class="fas fa-sort-up" *ngIf="sortBy === 'address' && sortAsc"></i>
+          <i
+            class="fas fa-sort-down"
+            *ngIf="sortBy === 'address' && !sortAsc"
+          ></i>
+          <i class="fas fa-sort" *ngIf="sortBy !== 'address'"></i>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of displayedEmployees">
+        <td>
+          <input
+            type="checkbox"
+            [checked]="selectedEmployees.includes(employee.empId)"
+            (change)="toggleRowSelection(employee.empId)"
+          />
+        </td>
+        <td>{{ employee.empName }}</td>
+        <td>{{ employee.empEmail }}</td>
+        <td>{{ employee.empPhone }}</td>
+        <td>{{ employee.empAddress }}</td>
+        <td>
+          <button (click)="editEmployee(employee)" class="btn btn-primary">
+            <i class="fas fa-edit" style="margin: 0"></i>
+          </button>
+          <button
+            (click)="deleteEmployee(employee.empId)"
+            class="btn btn-danger"
+          >
+            <i class="fas fa-trash" style="margin: 0"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="totalPages > 1" class="pagination container text-secondary">
+  <div class="pagination-info">
+    Showing {{ (currentPage - 1) * itemsPerPage + 1 }} -
+    {{ (currentPage - 1) * itemsPerPage + displayedEmployees.length }} out of
+    {{ employees.length }} entries
+  </div>
+  <div class="pagination-buttons">
+    <button [disabled]="currentPage === 1" (click)="goToPage(1)">First</button>
+    <button [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+      Previous
+    </button>
+    <ng-container *ngFor="let page of getPages()">
+      <button [class.primary]="currentPage === page" (click)="goToPage(page)">
+        {{ page }}
+      </button>
+    </ng-container>
+    <button
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(currentPage + 1)"
+    >
+      Next
+    </button>
+    <button
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(totalPages)"
+    >
+      Last
+    </button>
+  </div>
+</div>
