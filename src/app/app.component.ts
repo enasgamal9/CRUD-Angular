@@ -56,7 +56,7 @@ export class LoaderComponent {}
   selector: 'app-root',
   template: `
     <div class="tableHeader container">
-      <h3 class="table-title">Manage Employees</h3>
+      <h2 class="table-title">Manage Employees</h2>
       <button class="btn btn-success p-2" (click)="showAddPopup()">
         <i class="fas fa-plus bg-white text-success rounded-5 p-1"></i> Add New
         Employee

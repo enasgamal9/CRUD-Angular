@@ -6,6 +6,7 @@ import { Router } from '@angular/router'; // Add this line
 @Component({
   selector: 'app-employee-grid',
   template: `
+  <div class="table-container">
     <table *ngIf="employees && employees.length > 0" class="container">
       <thead>
         <tr>
@@ -57,18 +58,20 @@ import { Router } from '@angular/router'; // Add this line
           <td>{{ employee.empAddress }}</td>
           <td>
             <button (click)="editEmployee(employee)" class="btn btn-primary">
-              <i class="fas fa-edit"></i>
+              <i class="fas fa-edit" style="margin:0;"></i>
             </button>
             <button
               (click)="deleteEmployee(employee.empId)"
               class="btn btn-danger"
             >
-              <i class="fas fa-trash"></i>
+              <i class="fas fa-trash" style="margin:0;"></i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+    </div>
+
 
     <div *ngIf="totalPages > 1" class="pagination container text-secondary">
       <div class="pagination-info">
@@ -189,6 +192,9 @@ import { Router } from '@angular/router'; // Add this line
       }
       .fas:hover{
         cursor: pointer;
+      }
+      .table-container {
+        overflow-x: auto;
       }
     `,
   ],
